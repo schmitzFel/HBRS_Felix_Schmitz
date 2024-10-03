@@ -8,9 +8,7 @@ public class GermanTranslator implements Translator {
 	 * Methode zur Übersetzung einer Zahl in eine String-Repraesentation
 	 */
 	public String translateNumber( int number ) {
-		// [ihr Source Code aus Übung 1-2]
-
-		return "null";
+		return ""+number;
 	}
 
 	/**
