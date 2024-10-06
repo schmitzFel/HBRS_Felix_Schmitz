@@ -5,6 +5,9 @@ package org.hbrs.se1.ws24.exercises.uebung1.control;
  * und darf NICHT erweitert werden. Sichtbarkeiten koennen
  * unter Umstaenden angepasst werden.
  *
+ * Korrektur: Die Sichtbarkeit des Interface wurde auf public gesetzt,
+ * damit sie auch außerhalb des control-Package aufgerufen werden kann
+ *
  * @author saschaalda
  *
  */
