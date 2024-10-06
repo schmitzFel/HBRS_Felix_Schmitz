@@ -13,7 +13,7 @@ public class GermanTranslator implements Translator {
         if (number >= 1 && number <= 10) {
             return translatedNumbers[number-1];
         } else {
-            return "Übersetzung der Zahl " + number + " nicht möglich " + version;
+            return "Übersetzung der Zahl " + number + " nicht möglich " + "("+version+")";
         }
 
     }
