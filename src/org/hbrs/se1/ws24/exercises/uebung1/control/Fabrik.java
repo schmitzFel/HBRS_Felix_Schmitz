@@ -12,4 +12,13 @@ public class Fabrik {
     public static Translator translator(){
         return new GermanTranslator();
     }
+
+    /**
+     * Das Datum wird hier system-intern gesetzt und nicht von externen View-Klassen
+     */
+    public static Translator dateTranslator(){
+        GermanTranslator translator = new GermanTranslator();
+        translator.setDate("Monat/Jahr");
+        return translator;
+    }
 }
