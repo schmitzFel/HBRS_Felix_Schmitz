@@ -4,10 +4,6 @@ import static org.hbrs.se1.ws24.exercises.uebung1.control.Fabrik.translator;
 
 public class Client {
 
-	public static void main(String[] args) {
-		Client client=new Client();
-		client.display(0);
-	}
 
 		/**
 		 * Methode zur Ausgabe einer Zahl auf der Console
