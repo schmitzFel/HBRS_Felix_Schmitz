@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11b931b2-f8a2-4546-af99-1df1f0f211cc" name="Changes" comment="main methode entfernt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/codesSE2024.iml" beforeDir="false" afterPath="$PROJECT_DIR$/codesSE2024.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/hbrs/se1/ws24/exercises/uebung1/test/GermanTranslatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/hbrs/se1/ws24/exercises/uebung1/test/GermanTranslatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/hbrs/se1/ws24/exercises/uebung2/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/hbrs/se1/ws24/exercises/uebung2/member/Member.java" afterDir="false" />
-    </list>
+    <list default="true" id="11b931b2-f8a2-4546-af99-1df1f0f211cc" name="Changes" comment="Uebung 2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,6 +49,7 @@
   "keyToString": {
     "Application.Client.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.ContainerTest.executor": "Run",
     "JUnit.ContainerTest.testAddMember.executor": "Run",
     "JUnit.GermanTranslatorTest.aTest.executor": "Run",
     "Repository.Attach.Annotations": "false",
@@ -177,7 +173,7 @@
       <workItem from="1728235584133" duration="1941000" />
       <workItem from="1728383159591" duration="4460000" />
       <workItem from="1728473595576" duration="3121000" />
-      <workItem from="1728992579378" duration="2541000" />
+      <workItem from="1728992579378" duration="2931000" />
     </task>
     <task id="LOCAL-00001" summary="Neue Fabrikklasse">
       <option name="closed" value="true" />
@@ -211,7 +207,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728386574444</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Uebung 2">
+      <option name="closed" value="true" />
+      <created>1728995475941</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728995475941</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +237,7 @@
     <MESSAGE value="Junit tests" />
     <MESSAGE value="Kommentare" />
     <MESSAGE value="main methode entfernt" />
-    <option name="LAST_COMMIT_MESSAGE" value="main methode entfernt" />
+    <MESSAGE value="Uebung 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Uebung 2" />
   </component>
 </project>
