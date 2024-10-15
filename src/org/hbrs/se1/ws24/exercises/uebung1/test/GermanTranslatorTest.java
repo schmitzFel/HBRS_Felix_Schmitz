@@ -1,8 +1,9 @@
 package org.hbrs.se1.ws24.exercises.uebung1.test;
 
 import org.hbrs.se1.ws24.exercises.uebung1.control.GermanTranslator;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GermanTranslatorTest {
 
