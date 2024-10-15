@@ -9,7 +9,12 @@ public class Container {
     private List<Member> memberList = new ArrayList<>();
 
     // Fügt ein neues Member-Objekt hinzu, wenn die ID nicht bereits vorhanden ist
-    public void addMember(Member member) throws ContainerException {
+    public void addMember(Member member) throws ContainerException, IllegalArgumentException {
+        // Überprüfen, ob ein null Objekt übergeben wurde
+        if (member == null) {
+            throw new IllegalArgumentException("Das übergebene Member-Objekt darf nicht null sein.");
+        }
+
         // Überprüfen, ob die ID bereits vorhanden ist
         for (Member m : memberList) {
             if (m.getID().equals(member.getID())) {
