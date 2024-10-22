@@ -20,6 +20,7 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * Look-up in Google for further help!
      */
     public void save(List<E> member) throws PersistenceException  {
+
         try (FileOutputStream fos = new FileOutputStream(location);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(member);

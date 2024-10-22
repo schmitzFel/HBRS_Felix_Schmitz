@@ -1,12 +1,35 @@
 package org.hbrs.se1.ws24.exercises.uebung2.container;
-import org.hbrs.se1.ws24.exercises.uebung2.member.Member;
+
+import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
+import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Container {
-    // Liste zur Speicherung der Member-Objekte
-    private List<Member> memberList = new ArrayList<>();
+
+
+    private List<Member> memberList = new ArrayList<>();  // Liste zur Speicherung der Member-Objekte
+
+    private static Container instance;    //statische Variable zur Speicherung der einzigen Instanz der Klasse
+
+    private PersistenceStrategy<Member> persistenceStrategy;
+
+    private Container(){
+        //leer, damit niemand von außen Container instanzieren kann
+    }
+
+    public static Container getInstance(){ //Methode um von außen auf das Container Objekt zugreifen zu können
+        if(instance == null){
+            instance = new Container();
+        }
+        return instance;
+    }
+
+    // Gibt die aktuelle Liste der gespeicherten Member-Objekte zurück
+    public List<Member> getCurrentList() {
+        return new ArrayList<>(memberList);  // Rückgabe einer Kopie der Liste
+    }
 
     // Fügt ein neues Member-Objekt hinzu, wenn die ID nicht bereits vorhanden ist
     public void addMember(Member member) throws ContainerException, IllegalArgumentException {
@@ -53,4 +76,28 @@ public class Container {
     public int size() {
         return memberList.size();
     }
+
+    public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
+        this.persistenceStrategy = persistenceStrategy;
+    }
+
+    //Member-Objekte persistent auf einen Datenspeicher abspeichern
+    public void store() throws PersistenceException {
+
+        if (persistenceStrategy != null) {
+            persistenceStrategy.save(memberList);
+        } else {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet,"No persistence strategy set");
+        }
+    }
+
+    //Member-Objekte von einem Datenspeicher beziehen
+    public void load() throws PersistenceException {
+        if (persistenceStrategy != null) {
+            memberList = persistenceStrategy.load();
+        } else {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet,"No persistence strategy set");
+        }
+    }
+
 }

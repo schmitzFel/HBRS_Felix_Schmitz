@@ -2,10 +2,16 @@ package org.hbrs.se1.ws24.exercises.uebung2.test;
 
 import org.hbrs.se1.ws24.exercises.uebung2.container.Container;
 import org.hbrs.se1.ws24.exercises.uebung2.container.ContainerException;
-import org.hbrs.se1.ws24.exercises.uebung2.member.ConcreteMember;
-import org.hbrs.se1.ws24.exercises.uebung2.member.Member;
+import org.hbrs.se1.ws24.exercises.uebung2.container.ConcreteMember;
+import org.hbrs.se1.ws24.exercises.uebung2.container.Member;
+import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
+import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyMongoDB;
+import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ContainerTest {
@@ -13,7 +19,7 @@ public class ContainerTest {
 
     @BeforeEach
     public void setUp() {
-        container = new Container();
+        container = Container.getInstance();
     }
 
     @Test
@@ -91,7 +97,7 @@ public class ContainerTest {
 
 
     @Test
-    void testAddingNullMemberThrowsException() {
+    public void testAddingNullMemberThrowsException() {
         //Hinzufügen eines null-Members sollte eine Exception werfen
         assertThrows(IllegalArgumentException.class, () -> container.addMember(null));
     }
@@ -105,5 +111,68 @@ public class ContainerTest {
         }
         assertEquals(0, container.size(), "Der Container sollte leer bleiben, nachdem versucht wurde, ein null-Member hinzuzufügen.");
     }
+
+
+    // Test 1: Keine Persistenzstrategie gesetzt (Null-Strategie-Test)
+    @Test
+    public void testNoStrategySet() {
+        PersistenceException exception = assertThrows(PersistenceException.class, () -> {
+            container.store(); // Versucht, ohne gesetzte Strategie zu speichern
+        });
+        assertEquals(PersistenceException.ExceptionType.NoStrategyIsSet, exception.getExceptionTypeType());
+    }
+
+    // Test 2: Verwendung der PersistenceStrategyMongoDB, die noch nicht implementiert ist
+    @Test
+    public void testMongoDBStrategy() {
+        // Setze die MongoDB-Strategie im Container
+        container.setPersistenceStrategy(new PersistenceStrategyMongoDB<>());
+
+        // Speicherung sollte eine UnsupportedOperationException auslösen
+        assertThrows(UnsupportedOperationException.class, () -> {
+            container.store();
+        });
+
+        // Laden sollte ebenfalls eine UnsupportedOperationException auslösen
+        assertThrows(UnsupportedOperationException.class, () -> {
+            container.load();
+        });
+    }
+
+    @Test
+    public void testInvalidFileLocation() {
+        PersistenceStrategyStream<Member> streamStrategy = new PersistenceStrategyStream<>();
+        streamStrategy.setLocation("C:\\Users\\schmi\\Documents\\test.txt\""); // Setzt den Speicherort auf ein directory
+        container.setPersistenceStrategy(streamStrategy);
+
+        assertThrows(PersistenceException.class, () -> {
+            container.store(); // Versucht zu speichern, was fehlschlagen sollte
+        });
+    }
+
+    @Test
+    public void testRoundTrip() throws PersistenceException, ContainerException {
+        //Objekt hinzufügen
+        Member member = new ConcreteMember(1);
+        container.addMember(member);
+        assertEquals(1, container.size());
+
+        //Liste persistent abspeichern
+        PersistenceStrategyStream<Member> streamStrategy = new PersistenceStrategyStream<>();
+        streamStrategy.setLocation("C:\\Users\\schmi\\Documents\\test.txt");
+        container.setPersistenceStrategy(streamStrategy);
+        container.store();
+
+        //Objekt aus Container löschen
+        container.deleteMember(1);
+        assertEquals(0, container.size());
+
+        //Liste wieder einladen
+        container.load();
+        List<Member> loadedList = container.getCurrentList();
+        assertEquals(1, loadedList.size());
+        assertEquals(member.getID(), loadedList.get(0).getID());
+    }
+
 
 }

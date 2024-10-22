@@ -1,6 +1,8 @@
-package org.hbrs.se1.ws24.exercises.uebung2.member;
+package org.hbrs.se1.ws24.exercises.uebung2.container;
 
-public class ConcreteMember implements Member{
+import java.io.Serializable;
+
+public class ConcreteMember implements Member, Serializable {
     private Integer id;
 
     public ConcreteMember(Integer id) {
