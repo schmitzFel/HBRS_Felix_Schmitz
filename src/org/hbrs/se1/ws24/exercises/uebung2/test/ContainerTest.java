@@ -80,7 +80,7 @@ public class ContainerTest {
         Member member1 = new ConcreteMember(1);
         container.addMember(member1);
         container.deleteMember(1);
-        assertEquals(0, container.size(), "Nach dem Löschen eines Members sollte der Container leer sein.");
+        assertEquals(0, container.size()); //Nach dem Löschen eines Members sollte der Container leer sein.
     }
 
 

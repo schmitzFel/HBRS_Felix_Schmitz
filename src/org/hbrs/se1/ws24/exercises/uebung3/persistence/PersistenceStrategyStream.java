@@ -1,5 +1,6 @@
 package org.hbrs.se1.ws24.exercises.uebung3.persistence;
 
+import java.io.*;
 import java.util.List;
 
 public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
@@ -19,9 +20,15 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * Look-up in Google for further help!
      */
     public void save(List<E> member) throws PersistenceException  {
-
+        try (FileOutputStream fos = new FileOutputStream(location);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(member);
+        } catch (IOException e) {
+            throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable,"Error saving objects");
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     /**
      * Method for loading a list of Member-objects from a disk (HDD)
@@ -29,26 +36,39 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * Take also a look at the import statements above ;-!
      */
     public List<E> load() throws PersistenceException  {
-        // Some Coding hints ;-)
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
 
-        // ObjectInputStream ois = null;
-        // FileInputStream fis = null;
-        // List<...> newListe =  null;
-        //
-        // Initiating the Stream (can also be moved to method openConnection()... ;-)
-        // fis = new FileInputStream( " a location to a file" );
+        try {
+            // Streams initialisieren
+            fis = new FileInputStream(location);
+            ois = new ObjectInputStream(fis);
+            List<E> newListe = null;
 
+            Object obj = ois.readObject();   // Lesen des Objekts
+
+            if (obj instanceof List<?>) { // Prüfen, ob das geladene Objekt eine Liste ist
+                 newListe= (List<E>) obj;
+                return newListe;
+            } else {
+                // Fehler werfen, wenn das Objekt keine Liste ist
+                throw new PersistenceException(PersistenceException.ExceptionType.ConnectionNotAvailable,"Data is not a valid List");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            // Fehler beim Öffnen oder Lesen der Datei
+            throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable,"Error loading objects");
+        } finally {
+            // Manuelles Schließen der Streams
+        try {
+            if (ois != null) ois.close();
+            if (fis != null) fis.close();
+        } catch (IOException e) {
+            // Fehler beim Schließen der Streams
+            System.err.println("Error closing the streams: " + e.getMessage());
+        }
+
+    }
         // Tipp: Use a directory (ends with "/") to implement a negative test case ;-)
-        // ois = new ObjectInputStream(fis);
 
-        // Reading and extracting the list (try .. catch ommitted here)
-        // Object obj = ois.readObject();
-
-        // if (obj instanceof List<?>) {
-        //       newListe = (List) obj;
-        // return newListe
-
-        // and finally close the streams
-        return null;
     }
 }
