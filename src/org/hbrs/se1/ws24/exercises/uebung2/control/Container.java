@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws24.exercises.uebung2.container;
+package org.hbrs.se1.ws24.exercises.uebung2.control;
 
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategy;
