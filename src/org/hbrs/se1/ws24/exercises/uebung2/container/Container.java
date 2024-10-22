@@ -77,6 +77,10 @@ public class Container {
         return memberList.size();
     }
 
+    public void reset() {
+        memberList.clear(); // Leert die Liste der Member
+    }
+
     public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
         this.persistenceStrategy = persistenceStrategy;
     }
