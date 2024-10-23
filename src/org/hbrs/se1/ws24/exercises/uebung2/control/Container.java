@@ -19,7 +19,8 @@ public class Container {
         //leer, damit niemand von außen Container instanzieren kann
     }
 
-    public static Container getInstance(){ //Methode um von außen auf das Container Objekt zugreifen zu können
+    //Nicht Thread-Save
+    public static synchronized Container getInstance(){ //Methode um von außen auf das Container Objekt zugreifen zu können
         if(instance == null){
             instance = new Container();
         }
