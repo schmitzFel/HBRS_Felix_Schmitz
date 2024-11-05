@@ -1,6 +1,8 @@
 package org.hbrs.se1.ws24.exercises.uebung4;
 
-public class UserStory {
+import java.io.Serializable;
+
+public class UserStory implements Serializable {
     private Integer id;
     private String epic;
     private String description;

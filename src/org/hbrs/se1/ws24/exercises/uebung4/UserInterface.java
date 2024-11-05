@@ -1,10 +1,15 @@
 package org.hbrs.se1.ws24.exercises.uebung4;
 
-import java.util.Scanner;
 
+import java.util.Scanner;
 
 public class UserInterface {
     private static Container container = Container.getInstance();
+
+    static {
+        container.setPersistenceStrategy(new PersistenceStrategyStream<UserStory>());
+    }
+
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
