@@ -8,9 +8,9 @@ import java.util.List;
  * Each concrete algorithm (i.e. strategy) must implement this method
  * This interface corresponds to the abstract strategy w.r.t. to the
  * Strategy Design Pattern (GoF).
- *
  */
 public interface PersistenceStrategy<E> {
     public void save(List<E> member) throws PersistenceException;
+
     public List<E> load() throws PersistenceException;
 }

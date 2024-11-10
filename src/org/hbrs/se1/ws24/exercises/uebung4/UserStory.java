@@ -7,31 +7,37 @@ public class UserStory implements Serializable {
     private String epic;
     private String description;
     private String acceptanceCriteria;
-    private int priority;
-    private int velocity;
+    private int effort;
+    private int value;
+
+    private int penalty;
+
+    private int risk;
 
 
     // Konstruktor, Getter, und Setter
-    public UserStory(Integer id, String epic, String description, String acceptanceCriteria, int priority, int velocity) {
+    public UserStory(Integer id, String epic, String description, String acceptanceCriteria, int effort, int value, int penalty, int risk) {
         this.id = id;
         this.epic = epic;
-        this.description=description;
+        this.description = description;
         this.acceptanceCriteria = acceptanceCriteria;
-        this.priority = priority;
-        this.velocity = velocity;
+        this.effort = effort;
+        this.value = value;
+        this.penalty = penalty;
+        this.risk = risk;
 
     }
 
-    public Integer getID(){
+    public Integer getID() {
         return this.id;
     }
 
     public int getPriority() {
-        return priority;
+        return (this.value + this.penalty) / (this.effort + this.risk);
     }
 
-    public int getVelocity() {
-        return velocity;
+    public int getEffort() {
+        return effort;
     }
 
     public String getDescription() {
@@ -53,8 +59,11 @@ public class UserStory implements Serializable {
                 ", Epic='" + epic + '\'' +
                 ", Description='" + description + '\'' +
                 ", Acceptance Criteria='" + acceptanceCriteria + '\'' +
-                ", Priority=" + priority +
-                ", Velocity=" + velocity +
+                ", Priority=" + getPriority() +
+                ", Effort=" + effort +
+                ", Value=" + value +
+                ", Penalty=" + penalty +
+                ", Risk=" + risk +
                 '}';
     }
 

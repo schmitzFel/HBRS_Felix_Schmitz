@@ -13,13 +13,13 @@ public class Container {
 
     private PersistenceStrategy<UserStory> persistenceStrategy;
 
-    private Container(){
+    private Container() {
         //leer, damit niemand von außen Container instanzieren kann
     }
 
     //Nicht Thread-Save
-    public static synchronized Container getInstance(){ //Methode um von außen auf das Container Objekt zugreifen zu können
-        if(instance == null){
+    public static synchronized Container getInstance() { //Methode um von außen auf das Container Objekt zugreifen zu können
+        if (instance == null) {
             instance = new Container();
         }
         return instance;
@@ -51,7 +51,7 @@ public class Container {
         for (UserStory u : this.userStories) {
             if (u.getID().equals(id)) {
                 this.userStories.remove(u);
-                return "User mit ID " + id +" wurde gelöscht.";
+                return "User mit ID " + id + " wurde gelöscht.";
             }
         }
         return "Fehler: Kein User mit ID " + id + " gefunden.";
@@ -83,7 +83,7 @@ public class Container {
         if (persistenceStrategy != null) {
             persistenceStrategy.save(this.userStories);
         } else {
-            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet,"No persistence strategy set");
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "No persistence strategy set");
         }
     }
 
@@ -92,7 +92,7 @@ public class Container {
         if (persistenceStrategy != null) {
             this.userStories = persistenceStrategy.load();
         } else {
-            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet,"No persistence strategy set");
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "No persistence strategy set");
         }
     }
 

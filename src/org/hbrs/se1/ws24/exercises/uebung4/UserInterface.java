@@ -49,20 +49,18 @@ public class UserInterface {
 
     private static void handleEnter() {
         System.out.println("Bitte geben Sie die User Story-Daten ein.");
-        System.out.print("ID: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        System.out.print("Epic: ");
-        String epic = scanner.nextLine();
-        System.out.print("Beschreibung: ");
-        String description = scanner.nextLine();
-        System.out.print("Akzeptanzkriterien: ");
-        String acceptanceCriteria = scanner.nextLine();
-        System.out.print("Priorität: ");
-        int priority = Integer.parseInt(scanner.nextLine());
-        System.out.print("Velocity: ");
-        int velocity = Integer.parseInt(scanner.nextLine());
 
-        UserStory story = new UserStory(id, epic, description, acceptanceCriteria, priority, velocity);
+        // Methode zur sicheren Eingabe von Integer-Werten
+        int id = safeIntInput("ID");
+        String epic = safeStringInput("Epic");
+        String description = safeStringInput("Beschreibung");
+        String acceptanceCriteria = safeStringInput("Akzeptanzkriterien");
+        int effort = safeIntInput("Aufwand");
+        int value = safeIntInput("Mehrwert");
+        int penalty = safeIntInput("Strafe");
+        int risk = safeIntInput("Risiko");
+
+        UserStory story = new UserStory(id, epic, description, acceptanceCriteria, effort, value, penalty, risk);
         try {
             container.addUserStory(story);
             System.out.println("User Story wurde erfolgreich hinzugefügt.");
@@ -70,6 +68,37 @@ public class UserInterface {
             System.out.println("Fehler beim Hinzufügen der User Story: " + e.getMessage());
         }
     }
+
+    // Methode für sichere Integer-Eingabe mit Eingabeaufforderung
+    private static int safeIntInput(String prompt) {
+        while (true) {
+            System.out.print(prompt + ": ");
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) {
+                try {
+                    return Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    System.out.println("Ungültige Eingabe. Bitte geben Sie eine Zahl ein.");
+                }
+            } else {
+                System.out.println(prompt + " darf nicht leer sein. Bitte geben Sie eine Zahl ein.");
+            }
+        }
+    }
+
+    // Methode für sichere String-Eingabe mit Eingabeaufforderung
+    private static String safeStringInput(String prompt) {
+        while (true) {
+            System.out.print(prompt + ": ");
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) {
+                return input;
+            } else {
+                System.out.println(prompt + " darf nicht leer sein.");
+            }
+        }
+    }
+
 
     private static void handleStore() {
         try {
