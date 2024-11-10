@@ -23,7 +23,7 @@ class ContainerTest {
 
     @Test
     void testAddUserStory_Success() {
-        UserStory story = new UserStory(1, "Epic1", "Description", "Acceptance Criteria", 5, 3, 1, 2);
+        UserStory story = new UserStory(1, "Epic1", "Description", "Acceptance Criteria", 5, 3, 1, 2,"");
         container.addUserStory(story);
         assertEquals(1, container.size());
         assertEquals(story, container.getCurrentList().get(0));
@@ -31,8 +31,8 @@ class ContainerTest {
 
     @Test
     void testAddUserStory_DuplicateID_ShouldThrowException() {
-        UserStory story1 = new UserStory(1, "Epic1", "Description", "Acceptance Criteria", 5, 3, 1, 2);
-        UserStory story2 = new UserStory(1, "Epic2", "Different Description", "Different Criteria", 3, 4, 1, 1);
+        UserStory story1 = new UserStory(1, "Epic1", "Description", "Acceptance Criteria", 5, 3, 1, 2,"");
+        UserStory story2 = new UserStory(1, "Epic2", "Different Description", "Different Criteria", 3, 4, 1, 1,"");
         container.addUserStory(story1);
         assertThrows(IllegalArgumentException.class, () -> container.addUserStory(story2));
     }
@@ -44,7 +44,7 @@ class ContainerTest {
 
     @Test
     void testDeleteUser_ExistingID_ShouldDeleteUser() {
-        UserStory story = new UserStory(1, "Epic1", "Description", "Acceptance Criteria", 5, 3, 1, 2);
+        UserStory story = new UserStory(1, "Epic1", "Description", "Acceptance Criteria", 5, 3, 1, 2,"");
         container.addUserStory(story);
         String result = container.deleteUser(1);
         assertEquals("User mit ID 1 wurde gelöscht.", result);

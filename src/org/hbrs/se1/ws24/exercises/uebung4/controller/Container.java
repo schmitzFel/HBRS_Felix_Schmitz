@@ -64,6 +64,12 @@ public class Container {
                 .forEach(System.out::println);
     }
 
+    public void dumpByProject(String projektName) {
+        userStories.stream()
+                .filter(us -> us.getProjektName().equalsIgnoreCase(projektName))
+                .forEach(System.out::println);
+    }
+
     // Gibt die Anzahl der gespeicherten User-Objekte zurück
     public int size() {
         return this.userStories.size();

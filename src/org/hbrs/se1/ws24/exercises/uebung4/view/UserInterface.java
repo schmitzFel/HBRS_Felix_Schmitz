@@ -24,29 +24,33 @@ public class UserInterface {
             System.out.print("> ");
             String input = scanner.nextLine().trim();
             String[] parts = input.split(" ");
-            String command = parts[0];
 
-            switch (command) {
-                case "enter":
-                    handleEnter();
-                    break;
-                case "store":
-                    handleStore();
-                    break;
-                case "load":
-                    handleLoad();
-                    break;
-                case "dump":
-                    handleDump();
-                    break;
-                case "help":
-                    showHelp();
-                    break;
-                case "exit":
-                    System.out.println("Programm wird beendet.");
-                    System.exit(0);
-                default:
-                    System.out.println("Ungültiger Befehl. Geben Sie 'help' für eine Liste der Befehle ein.");
+            if (parts[0].equals("dump") && parts.length > 2 && parts[1].equals("projekt")) {
+                handleDumpProject(parts[2]);
+            } else {
+                String command = parts[0];
+                switch (command) {
+                    case "enter":
+                        handleEnter();
+                        break;
+                    case "store":
+                        handleStore();
+                        break;
+                    case "load":
+                        handleLoad();
+                        break;
+                    case "dump":
+                        handleDump();
+                        break;
+                    case "help":
+                        showHelp();
+                        break;
+                    case "exit":
+                        System.out.println("Programm wird beendet.");
+                        System.exit(0);
+                    default:
+                        System.out.println("Ungültiger Befehl. Geben Sie 'help' für eine Liste der Befehle ein.");
+                }
             }
         }
     }
@@ -54,7 +58,6 @@ public class UserInterface {
     private static void handleEnter() {
         System.out.println("Bitte geben Sie die User Story-Daten ein.");
 
-        // Methode zur sicheren Eingabe von Integer-Werten
         int id = safeIntInput("ID");
         String epic = safeStringInput("Epic");
         String description = safeStringInput("Beschreibung");
@@ -63,8 +66,9 @@ public class UserInterface {
         int value = safeIntInput("Mehrwert");
         int penalty = safeIntInput("Strafe");
         int risk = safeIntInput("Risiko");
+        String projektName = safeStringInput("Projektname"); // Eingabe des Projektnamens
 
-        UserStory story = new UserStory(id, epic, description, acceptanceCriteria, effort, value, penalty, risk);
+        UserStory story = new UserStory(id, epic, description, acceptanceCriteria, effort, value, penalty, risk, projektName);
         try {
             container.addUserStory(story);
             System.out.println("User Story wurde erfolgreich hinzugefügt.");
@@ -72,6 +76,7 @@ public class UserInterface {
             System.out.println("Fehler beim Hinzufügen der User Story: " + e.getMessage());
         }
     }
+
 
     // Methode für sichere Integer-Eingabe mit Eingabeaufforderung
     private static int safeIntInput(String prompt) {
@@ -125,6 +130,11 @@ public class UserInterface {
     private static void handleDump() {
         System.out.println("Aktuelle User Stories:");
         container.dump();
+    }
+
+    private static void handleDumpProject(String projektName) {
+        System.out.println("User Stories für Projekt: " + projektName);
+        container.dumpByProject(projektName);
     }
 
     private static void showHelp() {
