@@ -1,7 +1,4 @@
-package org.hbrs.se1.ws24.exercises.uebung4.controller;
-
-import org.hbrs.se1.ws24.exercises.uebung4.controller.PersistenceException;
-import org.hbrs.se1.ws24.exercises.uebung4.controller.PersistenceStrategy;
+package org.hbrs.se1.ws24.exercises.uebung4.model;
 
 import java.io.*;
 import java.util.List;

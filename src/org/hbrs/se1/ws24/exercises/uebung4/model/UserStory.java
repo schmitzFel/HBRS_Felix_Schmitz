@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws24.exercises.uebung4.controller;
+package org.hbrs.se1.ws24.exercises.uebung4.model;
 
 import java.io.Serializable;
 
@@ -67,7 +67,7 @@ public class UserStory implements Serializable {
                 ", Description='" + description + '\'' +
                 ", Acceptance Criteria='" + acceptanceCriteria + '\'' +
                 ", Priority=" + getPriority() +
-                "Projekt=" +  projektName +
+                ", Projekt= " +  projektName +
                 '}';
     }
 

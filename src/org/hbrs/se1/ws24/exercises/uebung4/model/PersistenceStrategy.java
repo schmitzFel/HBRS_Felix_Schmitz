@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws24.exercises.uebung4.controller;
+package org.hbrs.se1.ws24.exercises.uebung4.model;
 
 
 import java.util.List;

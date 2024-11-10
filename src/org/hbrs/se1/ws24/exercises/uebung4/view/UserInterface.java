@@ -1,61 +1,21 @@
+// Datei: UserInterface.java
 package org.hbrs.se1.ws24.exercises.uebung4.view;
 
-
-import org.hbrs.se1.ws24.exercises.uebung4.controller.Container;
-import org.hbrs.se1.ws24.exercises.uebung4.controller.PersistenceStrategyStream;
-import org.hbrs.se1.ws24.exercises.uebung4.controller.UserStory;
+import org.hbrs.se1.ws24.exercises.uebung4.model.Container;
+import org.hbrs.se1.ws24.exercises.uebung4.model.PersistenceStrategyStream;
+import org.hbrs.se1.ws24.exercises.uebung4.model.UserStory;
 
 import java.util.Scanner;
 
 public class UserInterface {
-    private static Container container = Container.getInstance();
+    private static final Container container = Container.getInstance();
+    private final Scanner scanner = new Scanner(System.in);
 
     static {
         container.setPersistenceStrategy(new PersistenceStrategyStream<UserStory>());
     }
 
-    private static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        System.out.println("Willkommen beim User Story Management von Coll@HBRS.");
-        System.out.println("Befehle: enter, store, load, dump, exit, help");
-
-        while (true) {
-            System.out.print("> ");
-            String input = scanner.nextLine().trim();
-            String[] parts = input.split(" ");
-
-            if (parts[0].equals("dump") && parts.length > 2 && parts[1].equals("projekt")) {
-                handleDumpProject(parts[2]);
-            } else {
-                String command = parts[0];
-                switch (command) {
-                    case "enter":
-                        handleEnter();
-                        break;
-                    case "store":
-                        handleStore();
-                        break;
-                    case "load":
-                        handleLoad();
-                        break;
-                    case "dump":
-                        handleDump();
-                        break;
-                    case "help":
-                        showHelp();
-                        break;
-                    case "exit":
-                        System.out.println("Programm wird beendet.");
-                        System.exit(0);
-                    default:
-                        System.out.println("Ungültiger Befehl. Geben Sie 'help' für eine Liste der Befehle ein.");
-                }
-            }
-        }
-    }
-
-    private static void handleEnter() {
+    public void handleEnter() {
         System.out.println("Bitte geben Sie die User Story-Daten ein.");
 
         int id = safeIntInput("ID");
@@ -77,9 +37,46 @@ public class UserInterface {
         }
     }
 
+    public void handleStore() {
+        try {
+            container.store();
+            System.out.println("User Stories wurden erfolgreich gespeichert.");
+        } catch (Exception e) {
+            System.out.println("Fehler beim Speichern: " + e.getMessage());
+        }
+    }
 
-    // Methode für sichere Integer-Eingabe mit Eingabeaufforderung
-    private static int safeIntInput(String prompt) {
+    public void handleLoad() {
+        try {
+            container.load();
+            System.out.println("User Stories wurden erfolgreich geladen.");
+        } catch (Exception e) {
+            System.out.println("Fehler beim Laden: " + e.getMessage());
+        }
+    }
+
+    public void handleDump() {
+        System.out.println("Aktuelle User Stories:");
+        container.dump();
+    }
+
+    public void handleDumpProject(String projektName) {
+        System.out.println("User Stories für Projekt: " + projektName);
+        container.dumpByProject(projektName);
+    }
+
+    public void showHelp() {
+        System.out.println("Verfügbare Befehle:");
+        System.out.println("  enter  - Eingabe einer neuen User Story");
+        System.out.println("  store  - Speichert alle User Stories dauerhaft");
+        System.out.println("  load   - Lädt alle User Stories von einem Datenträger");
+        System.out.println("  dump   - Zeigt alle User Stories an");
+        System.out.println("  exit   - Beendet das Programm");
+        System.out.println("  help   - Zeigt diese Hilfe an");
+    }
+
+    // Hilfsmethoden für sichere Eingaben
+    private int safeIntInput(String prompt) {
         while (true) {
             System.out.print(prompt + ": ");
             String input = scanner.nextLine().trim();
@@ -95,8 +92,7 @@ public class UserInterface {
         }
     }
 
-    // Methode für sichere String-Eingabe mit Eingabeaufforderung
-    private static String safeStringInput(String prompt) {
+    private String safeStringInput(String prompt) {
         while (true) {
             System.out.print(prompt + ": ");
             String input = scanner.nextLine().trim();
@@ -106,45 +102,6 @@ public class UserInterface {
                 System.out.println(prompt + " darf nicht leer sein.");
             }
         }
-    }
-
-
-    private static void handleStore() {
-        try {
-            container.store();
-            System.out.println("User Stories wurden erfolgreich gespeichert.");
-        } catch (Exception e) {
-            System.out.println("Fehler beim Speichern: " + e.getMessage());
-        }
-    }
-
-    private static void handleLoad() {
-        try {
-            container.load();
-            System.out.println("User Stories wurden erfolgreich geladen.");
-        } catch (Exception e) {
-            System.out.println("Fehler beim Laden: " + e.getMessage());
-        }
-    }
-
-    private static void handleDump() {
-        System.out.println("Aktuelle User Stories:");
-        container.dump();
-    }
-
-    private static void handleDumpProject(String projektName) {
-        System.out.println("User Stories für Projekt: " + projektName);
-        container.dumpByProject(projektName);
-    }
-
-    private static void showHelp() {
-        System.out.println("Verfügbare Befehle:");
-        System.out.println("  enter  - Eingabe einer neuen User Story");
-        System.out.println("  store  - Speichert alle User Stories dauerhaft");
-        System.out.println("  load   - Lädt alle User Stories von einem Datenträger");
-        System.out.println("  dump   - Zeigt alle User Stories an");
-        System.out.println("  exit   - Beendet das Programm");
-        System.out.println("  help   - Zeigt diese Hilfe an");
     }
 }
 
