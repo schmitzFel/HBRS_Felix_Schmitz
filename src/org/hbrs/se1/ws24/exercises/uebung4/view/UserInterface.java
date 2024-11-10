@@ -1,5 +1,9 @@
-package org.hbrs.se1.ws24.exercises.uebung4;
+package org.hbrs.se1.ws24.exercises.uebung4.view;
 
+
+import org.hbrs.se1.ws24.exercises.uebung4.controller.Container;
+import org.hbrs.se1.ws24.exercises.uebung4.controller.PersistenceStrategyStream;
+import org.hbrs.se1.ws24.exercises.uebung4.controller.UserStory;
 
 import java.util.Scanner;
 

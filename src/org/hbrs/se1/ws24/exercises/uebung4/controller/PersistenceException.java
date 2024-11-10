@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws24.exercises.uebung4;
+package org.hbrs.se1.ws24.exercises.uebung4.controller;
 
 public class PersistenceException extends Exception {
 
