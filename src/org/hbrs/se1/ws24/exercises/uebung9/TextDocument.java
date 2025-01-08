@@ -11,11 +11,13 @@ public class TextDocument extends CoreDocument{
 
     public TextDocument(String content, Encoding encoding){
         this.content=content;
-        this.Encoding=encoding;
+        Encoding=encoding;
     }
 
     public int getSize() {
         try {
+            //Wandelt den String "content", basierend auf dem angegebenen Charsetobjekt, welches
+            //in der Klammer aus einem Zeichenkodierungsnamen erstellt wird, in ein Byte-Array um
             return content.getBytes(Charset.forName(Encoding.getCharsetName())).length;
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Berechnen der Byte-Größe: " + e.getMessage());

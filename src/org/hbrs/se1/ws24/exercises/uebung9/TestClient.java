@@ -6,7 +6,7 @@ public class TestClient {
         TextDocument textDoc1 = new TextDocument("Hallo Welt", TextDocument.Encoding.UTF8);
         textDoc1.setID("1");
 
-        TextDocument textDoc2 = new TextDocument("Lorem Ipsum", TextDocument.Encoding.UTF16);
+        TextDocument textDoc2 = new TextDocument("TestTextDocument", TextDocument.Encoding.UTF16);
         textDoc2.setID("2");
 
         GraficDocument graphicDoc = new GraficDocument("localhost:8080");
